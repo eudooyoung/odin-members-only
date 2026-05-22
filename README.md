@@ -1,38 +1,26 @@
-# express template
+# Odin Members Only
 
-## packages
+## Database design
 
-### express
+### user
 
-- express
-- express-session
-- express-validator
+| column     |   data type | null |   constraints |    notes |
+| ---------- | ----------: | :--: | ------------: | -------: |
+| user_id    |         int |  X   |            PK |          |
+| first_name |     varchar |  X   |               | alphabet |
+| last_name  |     varchar |  X   |               | alphabet |
+| username   |     varchar |  X   |        unique |    email |
+| password   |     varchar |  X   |               |          |
+| status     |     boolean |  X   |  default true |          |
+| is_admin   |     boolean |  X   | default false |          |
+| created_at | timestamptz |  X   |   default now |          |
 
-### database
+### message
 
-- pg
-- connect-pg-simple
-
-### security
-
-- passport-local
-- passport
-- bcryptjs
-
-### typescript
-
-- tsx
-- typescript
-- @types/connect-pg-simple
-- @types/ejs
-- @types/express-session
-- @types/express
-- @types/node
-- @types/passport-local
-- @types/passport
-- @types/pg
-
-### utils
-
-- ejs
-- js-convert-case
+| column     |   data type | null | constraints | notes |
+| ---------- | ----------: | :--: | ----------: | ----: |
+| message_id |         int |  X   |          PK |       |
+| user_id    |         int |  X   |          FK |       |
+| title      |     varchar |  X   |             |       |
+| content    |        text |  X   |             |       |
+| created_at | timestamptz |  X   | default now |       |
