@@ -16,6 +16,7 @@
   "description": "",
   "main": "app.ts",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/connect-pg-simple": "^7.0.3",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.6",
@@ -24,8 +25,10 @@
     "@types/passport": "^1.0.17",
     "@types/passport-local": "^1.0.38",
     "@types/pg": "^8.20.0",
+    "eslint": "^10.4.0",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
