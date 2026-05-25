@@ -1,16 +1,16 @@
 #! /user/bin/env node
 
-import pg = require("pg");
-import fs = require("node:fs");
+import pg from "pg";
+import fs from "node:fs";
 
 const SQL = `
-drop table if exists person
+drop table if exists users
                    , message;
 
 set timezone = 'Asia/Seoul';
 
-create table if not exists person (
-    person_id int primary key generated always as identity,
+create table if not exists users (
+    user_id int primary key generated always as identity,
     first_name varchar (50) not null,
     last_name varchar (50) not null,
     username varchar (255) not null unique,
@@ -22,13 +22,13 @@ create table if not exists person (
 
 create table if not exists message (
     message_id int primary key generated always as identity,
-    person_id int not null,
+    user_id int not null,
     title varchar (100) not null,
     content text not null,
     created_at timestamptz default now(),
-    constraint fk_person
-        foreign key(person_id)
-        references person(person_id)
+    constraint fk_user
+        foreign key(user_id)
+        references user(user_id)
         on delete cascade
 );
 `;
