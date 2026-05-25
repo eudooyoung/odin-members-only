@@ -1,8 +1,14 @@
-import e from "express";
+import type { NextFunction, Request, Response } from "express";
 
 export type ErrorHandler = (
   err: { statusCode: number; message: string },
-  req: e.Request,
-  res: e.Response,
-  next: e.NextFunction,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => void;
+
+export type Middleware = (
+  req: Request,
+  res: Response,
+  next?: NextFunction,
 ) => void;
