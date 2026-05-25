@@ -1,5 +1,5 @@
-import pg = require("pg");
-import fs = require("node:fs");
+import pg from "pg";
+import fs from "node:fs";
 
 let pool: pg.Pool;
 if (process.argv[2] === "local") {
@@ -20,4 +20,4 @@ if (process.argv[2] === "local") {
   });
 }
 
-export = pool;
+export default pool;
