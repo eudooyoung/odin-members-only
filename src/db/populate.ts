@@ -35,7 +35,7 @@ create table if not exists message (
 
 const main = async () => {
   console.log("seeding start...");
-  let client;
+  let client: pg.Client;
   if (process.argv[2] === "local") {
     console.log("preparing client for local db...");
     client = new pg.Client({
