@@ -1,5 +1,5 @@
-export default interface Users {
-  userId: number;
+export default interface Member {
+  memberId: number;
   firstName: string;
   lastName: string;
   username: string;

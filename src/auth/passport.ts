@@ -1,23 +1,23 @@
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import passportLocal from "passport-local";
-import { getUserById, getUserByUsername } from "../db/queries";
+import { getMemberByUsername, getMemberById } from "../db/queries";
 
 const LocalStrategy = passportLocal.Strategy;
 
-passport.use(
+export default passport.use(
   new LocalStrategy((username, password, done) => {
     void (async () => {
       try {
-        const user = await getUserByUsername(username);
-        const match = await bcrypt.compare(password, user.password);
-        if (!user) {
+        const member = await getMemberByUsername(username);
+        const match = await bcrypt.compare(password, member.password);
+        if (!member) {
           return done(null, false, { message: "Incorrect username" });
         }
         if (!match) {
           return done(null, false, { message: "Incorrect password" });
         }
-        return done(null, user);
+        return done(null, member);
       } catch (err) {
         return done(err);
       }
@@ -26,13 +26,13 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.userId);
+  done(null, user.memberId);
 });
 
 passport.deserializeUser((userId: number, done) => {
   void (async () => {
     try {
-      const user = await getUserById(userId);
+      const user = await getMemberById(userId);
       done(null, user);
     } catch (err) {
       done(err);

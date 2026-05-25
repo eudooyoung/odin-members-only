@@ -1,12 +1,12 @@
 import jsConvert from "js-convert-case";
 import pool from "./pool";
-import type Users from "../model/user.dto";
+import type Users from "../models/member.dto";
 
-export const getUserByUsername = async (username: string) => {
+export const getMemberByUsername = async (username: string) => {
   const { rows } = await pool.query(
     `
     select * 
-      from users
+      from member
      where username = $1,
      `,
     [username],
@@ -14,12 +14,12 @@ export const getUserByUsername = async (username: string) => {
   return jsConvert.camelKeys(rows[0]) as Users;
 };
 
-export const getUserById = async (userId: number) => {
+export const getMemberById = async (userId: number) => {
   const { rows } = await pool.query(
     `
     select *
-      from users
-     where user_id = $1
+      from member
+     where member = $1
     `,
     [userId],
   );

@@ -7,4 +7,12 @@ const sessionStore = new PGStore({
   pool: pool,
 });
 
-export default sessionStore;
+export default session({
+  secret: String(process.env.SESSION_SECRET),
+  resave: false,
+  saveUninitialized: false,
+  store: sessionStore,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24,
+  },
+});

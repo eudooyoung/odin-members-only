@@ -1,9 +1,9 @@
-import type Users from "../model/user.dto";
+import type Member from "../models/member.dto";
 
 declare global {
   namespace Express {
-    interface User extends Users {
-      userId: number;
+    interface User extends Member {
+      memberId: number;
     }
   }
 }
