@@ -4,10 +4,11 @@ import errorHandler from "./errors/errorHandler";
 import session from "./auth/session";
 import passport from "./auth/passport";
 import { linkMiddleware } from "./utils/links";
+import signUpRouter from "./routes/signUpRouter";
 
 const app = express();
 
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(import.meta.dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(session);

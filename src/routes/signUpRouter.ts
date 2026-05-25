@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { signUpGet } from "../controllers/signUpController";
 
 const signUpRouter = Router();
 signUpRouter.use((req, res, next) => {
@@ -7,5 +8,6 @@ signUpRouter.use((req, res, next) => {
 });
 
 signUpRouter.get("/", signUpGet);
+signUpRouter.post("create", signUpPost)
 
 export default signUpRouter;
