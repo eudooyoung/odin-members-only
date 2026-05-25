@@ -1,0 +1,12 @@
+<header>
+  <h1>다시마 클럽</h1>
+  <nav>
+    <ul>
+      <% links.forEach(link => { %>
+      <li>
+        <a class="<%= link.href.includes(route.page) && 'selected' %>" href="<%= link.href %>"><%= link.text %></a>
+      </li>
+      <% }) %>
+    </ul>
+  </nav>
+</header>
