@@ -1,4 +1,4 @@
-export interface MemberInput {
+export interface MemberRequest {
   username: string;
   password: string;
   firstName: string;

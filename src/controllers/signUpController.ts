@@ -1,7 +1,9 @@
 import { matchedData, validationResult } from "express-validator";
-import type { Middleware } from "../types/types";
 import jsConvert from "js-convert-case";
-import type { MemberInput } from "../models/memberInput.dto";
+import type { Middleware } from "../types/types.js";
+import { validateNewMember } from "../middlewares/validates/validateMember.js";
+import { insertMember } from "../db/queries.js";
+import type { MemberRequest } from "../models/memberRequest.dto.js";
 
 export const signUpGet: Middleware = (req, res) => {
   res.render("index");
@@ -15,9 +17,11 @@ const signUpPostMiddleware: Middleware = (req, res) => {
         prev: jsConvert.camelKeys(req.body),
       });
     }
-    const memberInput = ({ username, password, firstName, lastName } =
-      matchedData(req));
-    await insertMember(memberInput);
+    const { username, password, firstName, lastName }: MemberRequest =
+      matchedData(req);
+    await insertMember({ username, password, firstName, lastName });
     res.redirect("/sign-up/code");
   })();
 };
+
+export const signUpPost = [...validateNewMember, signUpPostMiddleware];

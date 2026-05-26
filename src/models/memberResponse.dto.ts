@@ -1,4 +1,4 @@
-export default interface Member {
+export default interface MemberResponse {
   memberId: number;
   firstName: string;
   lastName: string;
