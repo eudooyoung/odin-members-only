@@ -14,7 +14,7 @@ create table if not exists member (
     username varchar (255) not null unique,
     first_name varchar (50) not null,
     last_name varchar (50) not null,
-    password varchar (50) not null,
+    password varchar (60) not null,
     status boolean,
     is_admin boolean not null default false,
     created_at timestamptz default now()
