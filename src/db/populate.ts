@@ -2,6 +2,7 @@
 
 import pg from "pg";
 import fs from "node:fs";
+import config from "../config.js";
 
 const SQL = `
 drop table if exists member
@@ -35,26 +36,22 @@ create table if not exists message (
 
 const main = async () => {
   console.log("seeding start...");
-  let client: pg.Client;
-  if (process.argv[2] === "local") {
-    console.log("preparing client for local db...");
-    client = new pg.Client({
-      connectionString: process.env.LOCAL_DB_URL,
-    });
-  } else {
-    console.log("preparing client for remote db...");
-    client = new pg.Client({
-      user: process.env.REMOTE_DB_USER,
-      password: process.env.REMOTE_DB_PW,
-      host: process.env.REMOTE_EB_HOST,
-      port: Number(process.env.REMOTE_DB_PORT),
-      database: process.env.REMOTE_DB_NAME,
-      ssl: {
-        rejectUnauthorized: true,
-        ca: fs.readFileSync("./ca.pem").toString(),
-      },
-    });
-  }
+  console.log(`preparing client for ${config.dbEnv} db...`);
+  const client = new pg.Client({
+    user: config.dbUser,
+    password: config.dbPassword,
+    host: config.dbHost,
+    port: config.dbPort,
+    database: config.dbName,
+    ssl:
+      config.dbEnv === "production"
+        ? {
+            rejectUnauthorized: true,
+            ca: fs.readFileSync("./ca.pem").toString(),
+          }
+        : false,
+  });
+
   console.log("client build successfully");
   console.log("start trying to connect to db...");
   try {
