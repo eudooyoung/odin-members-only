@@ -11,6 +11,7 @@
     "module": "esnext",
     "target": "es2025",
     "types": ["node"],
+    "esModuleInterop": true,
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],

@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import passportLocal from "passport-local";
-import { getMemberByUsername, getMemberById } from "../db/queries";
+import { getMemberByUsername, getMemberById } from "../db/queries.js";
 
 const LocalStrategy = passportLocal.Strategy;
 

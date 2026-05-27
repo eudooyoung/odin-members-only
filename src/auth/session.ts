@@ -1,6 +1,6 @@
 import connectPG from "connect-pg-simple";
 import session from "express-session";
-import pool from "../db/pool";
+import pool from "../db/pool.js";
 
 const PGStore = connectPG(session);
 const sessionStore = new PGStore({

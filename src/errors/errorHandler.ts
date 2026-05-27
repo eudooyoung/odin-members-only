@@ -1,4 +1,4 @@
-import type { ErrorHandler } from "../types/types";
+import type { ErrorHandler } from "../types/types.js";
 
 const errorHandler: ErrorHandler = (err, req, res, next) => {
   console.error(err);

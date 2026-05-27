@@ -1,0 +1,27 @@
+import { matchedData, validationResult } from "express-validator";
+import type { Middleware } from "../types/types.js";
+import { validateNewMember } from "../middlewares/validates/validateMember.js";
+import { insertMember } from "../db/queries.js";
+import type { MemberRequest } from "../models/memberRequest.dto.js";
+
+export const signUpGet: Middleware = (req, res) => {
+  res.render("index");
+};
+
+const signUpPostMiddleware: Middleware = (req, res) => {
+  void (async () => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("index", {
+        errors: errors.array(),
+        prev: req.body as Record<string, unknown>,
+      });
+    }
+    const { username, password, firstName, lastName }: MemberRequest =
+      matchedData(req);
+    await insertMember({ username, password, firstName, lastName });
+    res.redirect("/");
+  })();
+};
+
+export const signUpPost = [...validateNewMember, signUpPostMiddleware];
