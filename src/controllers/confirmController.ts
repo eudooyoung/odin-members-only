@@ -1,12 +1,12 @@
 import { matchedData, validationResult } from "express-validator";
-import type { Middleware } from "../types/types.js";
 import { validateConfirmCode } from "../validates/validateConfirmCode.js";
+import type { RequestHandler } from "express";
 
-export const confirmGet: Middleware = (req, res) => {
+export const confirmGet: RequestHandler = (req, res) => {
   res.render("index");
 };
 
-const confirmPostMiddleWare: Middleware = (req, res) => {
+const confirmPostMiddleWare: RequestHandler = (req, res) => {
   void (async () => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

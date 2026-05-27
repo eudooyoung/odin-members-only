@@ -17,7 +17,10 @@ export default defineConfig(
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-elint/no-empty-interface": [
+        "error",
+        { allowSingleExtends: true },
+      ],
     },
   },
 );

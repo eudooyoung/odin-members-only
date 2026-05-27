@@ -1,14 +1,14 @@
 import { matchedData, validationResult } from "express-validator";
-import type { Middleware } from "../types/types.js";
 import { validateNewMember } from "../validates/validateMember.js";
 import { insertMember } from "../db/queries.js";
 import type { MemberRequest } from "../models/memberRequest.dto.js";
+import type { RequestHandler } from "express";
 
-export const signUpGet: Middleware = (req, res) => {
+export const signUpGet: RequestHandler = (req, res) => {
   res.render("index");
 };
 
-const signUpPostMiddleware: Middleware = (req, res) => {
+const signUpPostMiddleware: RequestHandler = (req, res) => {
   void (async () => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

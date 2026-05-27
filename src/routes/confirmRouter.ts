@@ -1,11 +1,10 @@
 import { Router } from "express";
 import { confirmGet, confirmPost } from "../controllers/confirmController.js";
+import pageMiddleware from "../utils/pageMiddleware.js";
 
 const confirmRouter = Router();
-confirmRouter.use((req, res, next) => {
-  res.locals.route = { page: "confirm" };
-  next();
-});
+
+confirmRouter.use(pageMiddleware("confirm"));
 
 confirmRouter.get("/", confirmGet);
 confirmRouter.post("/", confirmPost);

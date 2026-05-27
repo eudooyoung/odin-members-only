@@ -3,10 +3,12 @@ import path from "node:path";
 import errorHandler from "./errors/errorHandler.js";
 import session from "./auth/session.js";
 import passport from "./auth/passport.js";
-import passLinks from "./utils/passLinks.js";
+import linkMiddleware from "./utils/linkMiddleware.js";
 import signUpRouter from "./routes/signUpRouter.js";
 import requestBodyCaseConverter from "./utils/requestBodyCaseConverter.js";
 import confirmRouter from "./routes/confirmRouter.js";
+import loginRouter from "./routes/loginRouter.js";
+import logoutRouter from "./routes/logoutRouter.js";
 
 const app = express();
 
@@ -17,10 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session);
 app.use(passport.session());
 app.use(requestBodyCaseConverter);
-app.use(passLinks);
+app.use(linkMiddleware);
 
 app.use("/sign-up", signUpRouter);
-app.use("/confirm", confirmRouter)
+app.use("/confirm", confirmRouter);
+app.use("/login", loginRouter);
+app.use("/logout", logoutRouter);
 
 app.use(errorHandler);
 const PORT = process.env.PORT;
