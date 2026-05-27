@@ -3,9 +3,10 @@ import path from "node:path";
 import errorHandler from "./errors/errorHandler.js";
 import session from "./auth/session.js";
 import passport from "./auth/passport.js";
-import passLinks from "./middlewares/passLinks.js";
+import passLinks from "./utils/passLinks.js";
 import signUpRouter from "./routes/signUpRouter.js";
-import requestBodyCaseConverter from "./middlewares/requestBodyCaseConverter.js";
+import requestBodyCaseConverter from "./utils/requestBodyCaseConverter.js";
+import confirmRouter from "./routes/confirmRouter.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(requestBodyCaseConverter);
 app.use(passLinks);
 
 app.use("/sign-up", signUpRouter);
+app.use("/confirm", confirmRouter)
 
 app.use(errorHandler);
 const PORT = process.env.PORT;

@@ -1,0 +1,12 @@
+<main>
+  <h2>멤버십 코드 확인</h2>
+  <p>제공 받은 멤버십 코드를 입력해 주세요</p>
+  <form action="confirm" method="post">
+    <label for="confirm-code">코드:</label>
+    <input type="text" name="confirm-code" id="confirm-code" required>
+    <button type="submit">제출</button>
+  </form>
+  <% if (locals.errors) { %>
+   <%- include("../template/error") %>
+  <% } %>
+</main>

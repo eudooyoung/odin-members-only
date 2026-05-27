@@ -1,6 +1,6 @@
 import { matchedData, validationResult } from "express-validator";
 import type { Middleware } from "../types/types.js";
-import { validateNewMember } from "../middlewares/validates/validateMember.js";
+import { validateNewMember } from "../validates/validateMember.js";
 import { insertMember } from "../db/queries.js";
 import type { MemberRequest } from "../models/memberRequest.dto.js";
 
