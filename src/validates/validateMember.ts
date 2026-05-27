@@ -1,21 +1,22 @@
 import { body } from "express-validator";
-import { existMemberByUsername } from "../../db/queries.js";
-import type { MemberRequest } from "../../models/memberRequest.dto.js";
+import { existMemberByUsername } from "../db/queries.js";
+import type { MemberRequest } from "../models/memberRequest.dto.js";
 import bcrypt from "bcryptjs";
-
-const emptyErr = "must be present";
-const usernameMinLengthErr = "must be more than 5 characters";
-const usernameMaxLengthErr = "must be less than 31 characters";
-const emailErr = "must be email";
-const duplicateErr = "already in use";
-const passwordMinLengthErr = "must be more than 7 characters ";
-const passwordMaxLengthErr = "must be less than 73 characters ";
-const passwordUppercaseErr = "must contain an uppercase letter";
-const passwordNumericErr = "must contain a number";
-const passwordSpecialCharacterErr = "must contain a special character";
-const passwordConfirmNotMatchErr = "password don't match";
-const alphaErr = "must only contain alphabet characters";
-const nameLengthErr = "must be between 1 and 15 characters";
+import {
+  alphaErr,
+  duplicateErr,
+  emailErr,
+  emptyErr,
+  nameLengthErr,
+  passwordConfirmNotMatchErr,
+  passwordMaxLengthErr,
+  passwordMinLengthErr,
+  passwordNumericErr,
+  passwordSpecialCharacterErr,
+  passwordUppercaseErr,
+  usernameMaxLengthErr,
+  usernameMinLengthErr,
+} from "./errors.js";
 
 export const validateNewMember = [
   body("username")
