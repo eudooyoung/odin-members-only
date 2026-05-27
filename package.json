@@ -31,11 +31,12 @@
     "typescript-eslint": "^8.59.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist/ && npm install && tsc && cp -r src/views dist/ && cp -r src/public dist/",
     "start": "node dist/app.js",
-    "populate": "tsx --env-file=.env src/db/populate.ts",
-    "dev": "tsx --watch --env-file=.env src/app.ts"
+    "populate:dev": "dotenv -e .env -e .env.dev tsx src/db/populate.ts",
+    "populate:prod": "dotenv -e .env -e .env.prod tsx src/db/populate.ts",
+    "dev": "dotenv -e .env -e .env.dev tsx --watch src/app.ts",
+    "dev:prod": "dotenv -e .env -e .env.prod tsx --watch src/app.ts"
   },
   "keywords": [],
   "author": "",

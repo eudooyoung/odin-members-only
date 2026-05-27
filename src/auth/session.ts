@@ -1,6 +1,7 @@
 import connectPG from "connect-pg-simple";
 import session from "express-session";
 import pool from "../db/pool.js";
+import config from "../config.js";
 
 const PGStore = connectPG(session);
 const sessionStore = new PGStore({
@@ -8,7 +9,7 @@ const sessionStore = new PGStore({
 });
 
 export default session({
-  secret: String(process.env.SESSION_SECRET),
+  secret: config.sessionSecret,
   resave: false,
   saveUninitialized: false,
   store: sessionStore,

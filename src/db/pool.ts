@@ -1,23 +1,20 @@
 import pg from "pg";
 import fs from "node:fs";
+import config from "../config.js";
 
-let pool: pg.Pool;
-if (process.argv[2] === "local") {
-  pool = new pg.Pool({
-    connectionString: process.env.LOCAL_DB_URL,
-  });
-} else {
-  pool = new pg.Pool({
-    user: process.env.REMOTE_DB_USER,
-    password: process.env.REMOTE_DB_PW,
-    host: process.env.REMOTE_DB_HOST,
-    port: Number(process.env.REMOTE_DB_PORT),
-    database: process.env.REMOTE_DB_NAME,
-    ssl: {
-      rejectUnauthorized: true,
-      ca: fs.readFileSync("./ca.pem").toString(),
-    },
-  });
-}
+const pool = new pg.Pool({
+  user: config.dbUser,
+  password: config.dbPassword,
+  host: config.dbHost,
+  port: config.dbPort,
+  database: config.dbName,
+  ssl:
+    config.dbEnv === "production"
+      ? {
+          rejectUnauthorized: true,
+          ca: fs.readFileSync("./ca.pem").toString(),
+        }
+      : false,
+});
 
 export default pool;
