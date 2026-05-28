@@ -51,3 +51,26 @@ export const existMemberByUsername = async (username: string) => {
   );
   return rows.length > 0;
 };
+
+export const confirmMemberAsMemberWithId = async (memberId: number) => {
+  await pool.query(
+    `
+    update member
+       set is_admin = false
+     where member_id = $1
+    `,
+    [memberId],
+  );
+};
+
+export const confirmMemberAsAdminWithId = async (memberId: number) => {
+  await pool.query(
+    `
+    update member
+       set is_admin = true
+         , status = true
+     where member_id = $1
+    `,
+    [memberId],
+  );
+};

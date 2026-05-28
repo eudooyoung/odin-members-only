@@ -1,12 +1,7 @@
-<% if (route.page === "home") { %>
-<%- include("../mains/home") %>
+<% if (page === "home") { %>
+<%- include("../pages/home") %>
 <% } %>
-<% if (route.page === "sign-up") { %>
-<%- include("../mains/sign-up") %>
-<% } %>
-<% if (route.page === "confirm") { %>
-<%- include("../mains/confirm") %>
-<% } %>
-<% if (route.page === "login") { %>
- <%- include("../mains/login") %>
+
+<% if (page === "auth") { %>
+<%- include("../pages/auth") %>
 <% } %>

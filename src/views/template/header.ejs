@@ -4,7 +4,7 @@
     <ul>
       <% links.forEach(link => { %>
       <li>
-        <a class="<%= link.href.includes(route.page) && 'selected' %>" href="<%= link.href %>"><%= link.text %></a>
+        <a href="<%= link.href %>"><%= link.text %></a>
       </li>
       <% }) %>
     </ul>

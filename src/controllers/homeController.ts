@@ -1,8 +1,12 @@
-import { matchedData, validationResult } from "express-validator";
-import { validateNewMember } from "../validates/validateMember.js";
-import { insertMember } from "../db/queries.js";
-import type { MemberRequest } from "../models/memberRequest.dto.js";
 import type { RequestHandler } from "express";
+import { matchedData, validationResult } from "express-validator";
+import type { MemberRequest } from "../models/memberRequest.dto.js";
+import { insertMember } from "../db/queries.js";
+import { validateNewMember } from "../validates/validateMember.js";
+
+export const homeGet: RequestHandler = (req, res) => {
+  res.render("index");
+};
 
 export const signUpGet: RequestHandler = (req, res) => {
   res.render("index");
@@ -25,3 +29,7 @@ const signUpPostMiddleware: RequestHandler = (req, res) => {
 };
 
 export const signUpPost = [...validateNewMember, signUpPostMiddleware];
+
+export const loginGet: RequestHandler = (req, res) => {
+  res.render("index");
+};

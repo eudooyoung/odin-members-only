@@ -1,0 +1,13 @@
+<% if (!locals.action) { %>
+<%- include("../actions/home/index") %>
+<% } %>
+
+<% if (locals.action) { %>
+<% if (action === "signup") { %>
+<%- include("../actions/home/signup") %>
+<% } %>
+
+<% if (action === "login") { %>
+<%- include("../actions/home/login") %>
+<% } %>
+<% } %>

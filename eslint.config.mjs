@@ -17,9 +17,9 @@ export default defineConfig(
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-elint/no-empty-interface": [
+      "@typescript-eslint/no-empty-object-type": [
         "error",
-        { allowSingleExtends: true },
+        { allowInterfaces: "with-single-extends" },
       ],
     },
   },
