@@ -1,6 +1,4 @@
 import { body } from "express-validator";
-import { existMemberByUsername } from "../db/queries.js";
-import type { MemberRequest } from "../models/memberRequest.dto.js";
 import bcrypt from "bcryptjs";
 import {
   alphaErr,
@@ -17,6 +15,8 @@ import {
   usernameMaxLengthErr,
   usernameMinLengthErr,
 } from "./errors.js";
+import { existMemberByUsername } from "../../db/queries.js";
+import type { MemberRequest } from "../../models/member.dto.js";
 
 export const validateNewMember = [
   body("username")

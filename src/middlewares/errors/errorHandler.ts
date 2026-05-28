@@ -1,3 +1,5 @@
+import type ErrorHandler from "../../types/errorHandler.js";
+
 const errorHandler: ErrorHandler = (err, req, res, next) => {
   console.error(err);
 

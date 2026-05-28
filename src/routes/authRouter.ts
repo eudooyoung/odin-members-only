@@ -1,5 +1,5 @@
 import { Router, type RequestHandler } from "express";
-import pageProvider from "../utils/pageProvider.js";
+import pageProvider from "../middlewares/utils/pageProvider.js";
 import {
   confirmGet,
   confirmPost,

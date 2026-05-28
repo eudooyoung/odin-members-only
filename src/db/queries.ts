@@ -1,7 +1,7 @@
 import jsConvert from "js-convert-case";
 import pool from "./pool.js";
-import type MemberResponse from "../models/memberResponse.dto.js";
-import type { MemberRequest } from "../models/memberRequest.dto.js";
+import type { MemberRequest } from "../models/member.dto.js";
+import type MemberResponse from "../models/member.dto.js";
 
 export const getMemberByUsername = async (username: string) => {
   const { rows } = await pool.query(

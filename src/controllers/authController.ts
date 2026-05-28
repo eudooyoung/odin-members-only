@@ -1,13 +1,13 @@
 import type { RequestHandler } from "express";
 import { matchedData, validationResult } from "express-validator";
-import { validateConfirmCode } from "../validates/validateConfirmCode.js";
 import {
   confirmMemberAsAdminWithId,
   confirmMemberAsMemberWithId,
   insertMember,
 } from "../db/queries.js";
-import type { MemberRequest } from "../models/memberRequest.dto.js";
-import { validateNewMember } from "../validates/validateMember.js";
+import type { MemberRequest } from "../models/member.dto.js";
+import { validateNewMember } from "../middlewares/validates/validateMember.js";
+import { validateConfirmCode } from "../middlewares/validates/validateConfirmCode.js";
 
 export const signUpGet: RequestHandler = (req, res) => {
   res.render("index");

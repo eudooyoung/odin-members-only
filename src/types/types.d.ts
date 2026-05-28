@@ -1,13 +1,12 @@
-import type { Request, Response } from "express";
-import type MemberResponse from "../models/memberResponse.dto.js";
+import type MemberResponse from "../models/member.dto.js";
 
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
       PORT: string;
       SESSION_SECRET: string;
-      MEMBER_CODE: ConfirmCode;
-      ADMIN_CODE: ConfirmCode;
+      MEMBER_CODE: string;
+      ADMIN_CODE: string;
 
       DB_ENV: "development" | "production";
       DB_USER: string;
@@ -20,15 +19,4 @@ declare global {
   namespace Express {
     interface User extends MemberResponse {}
   }
-
-  type Page = "home" | "dashboard" | "signup" | "login" | "confirm";
-
-  type ConfirmCode = "DONGHAE" | "DOKDO";
-
-  type ErrorHandler = (
-    err: { statusCode: number; message: string },
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => void;
 }
