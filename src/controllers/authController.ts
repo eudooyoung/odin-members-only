@@ -4,12 +4,35 @@ import { validateConfirmCode } from "../validates/validateConfirmCode.js";
 import {
   confirmMemberAsAdminWithId,
   confirmMemberAsMemberWithId,
+  insertMember,
 } from "../db/queries.js";
+import type { MemberRequest } from "../models/memberRequest.dto.js";
+import { validateNewMember } from "../validates/validateMember.js";
 
-export const dashboardGet: RequestHandler = (req, res) => {
-  res.render("index", {
-    status: req.user!.status,
-  });
+export const signUpGet: RequestHandler = (req, res) => {
+  res.render("index");
+};
+
+const signUpPostHandler: RequestHandler = (req, res) => {
+  void (async () => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("index", {
+        errors: errors.array(),
+        prev: req.body as Record<string, unknown>,
+      });
+    }
+    const { username, password, firstName, lastName }: MemberRequest =
+      matchedData(req);
+    await insertMember({ username, password, firstName, lastName });
+    res.redirect("/dashboard");
+  })();
+};
+
+export const signUpPost = [...validateNewMember, signUpPostHandler];
+
+export const loginGet: RequestHandler = (req, res) => {
+  res.render("index");
 };
 
 export const confirmGet: RequestHandler = (req, res) => {
@@ -30,7 +53,7 @@ const confirmPostMiddleWare: RequestHandler = (req, res) => {
     } else {
       await confirmMemberAsAdminWithId(req.user!.memberId);
     }
-    res.redirect("/auth/dashboard");
+    res.redirect("/dashboard");
   })();
 };
 

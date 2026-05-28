@@ -1,9 +1,0 @@
-<% if (!locals.action) { %>
-<%- include("../actions/auth/dashboard") %>
-<% } %>
-
-<% if (locals.action) { %>
-<% if (action === "confirm") { %>
-<%- include("../actions/auth/confirm") %>
-<% } %>
-<% } %>

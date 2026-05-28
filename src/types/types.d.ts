@@ -21,9 +21,7 @@ declare global {
     interface User extends MemberResponse {}
   }
 
-  type Page = "home" | "auth";
-
-  type Action = "signup" | "login" | "dashboard" | "confirm";
+  type Page = "home" | "dashboard" | "signup" | "login" | "confirm";
 
   type ConfirmCode = "DONGHAE" | "DOKDO";
 

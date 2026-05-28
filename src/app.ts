@@ -7,7 +7,7 @@ import linkProvider from "./utils/linkProvider.js";
 import requestBodyCaseConverter from "./utils/requestBodyCaseConverter.js";
 import flash from "express-flash";
 import authRouter from "./routes/authRouter.js";
-import homeRouter from "./routes/homeRouter.js";
+import router from "./routes/router.js";
 
 const app = express();
 
@@ -21,8 +21,8 @@ app.use(passport.session());
 app.use(requestBodyCaseConverter);
 app.use(linkProvider);
 
+app.use("/", router);
 app.use("/auth", authRouter);
-app.use("/", homeRouter);
 
 app.use(errorHandler);
 const PORT = process.env.PORT;

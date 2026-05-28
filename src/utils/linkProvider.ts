@@ -3,13 +3,13 @@ import type { RequestHandler } from "express";
 const commonLink = [{ href: "/home", text: "Home" }];
 
 const guestLink = [
-  { href: "/signup", text: "SignUp" },
-  { href: "/login", text: "Login" },
+  { href: "/auth/signup", text: "SignUp" },
+  { href: "/auth/login", text: "Login" },
 ];
 
 const memberLink = [
-  { href: "/auth/dashboard", text: "Dashboard" },
-  { href: "/auth/logout", text: "Logout" },
+  { href: "/dashboard", text: "Dashboard" },
+  { href: "/logout", text: "Logout" },
 ];
 
 const linkProvider: RequestHandler = (req, res, next) => {
