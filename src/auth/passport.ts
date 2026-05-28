@@ -10,10 +10,10 @@ export default passport.use(
     void (async () => {
       try {
         const member = await getMemberByUsername(username);
-        const match = await bcrypt.compare(password, member.password);
         if (!member) {
           return done(null, false, { message: "Incorrect username" });
         }
+        const match = await bcrypt.compare(password, member.password);
         if (!match) {
           return done(null, false, { message: "Incorrect password" });
         }
@@ -25,15 +25,15 @@ export default passport.use(
   }),
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user.memberId);
+passport.serializeUser((member, done) => {
+  done(null, member.memberId);
 });
 
-passport.deserializeUser((userId: number, done) => {
+passport.deserializeUser((memberId: number, done) => {
   void (async () => {
     try {
-      const user = await getMemberById(userId);
-      done(null, user);
+      const member = await getMemberById(memberId);
+      done(null, member);
     } catch (err) {
       done(err);
     }

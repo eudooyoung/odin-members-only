@@ -1,6 +1,6 @@
 import jsConvert from "js-convert-case";
 import pool from "./pool.js";
-import type Users from "../models/memberResponse.dto.js";
+import type MemberResponse from "../models/memberResponse.dto.js";
 import type { MemberRequest } from "../models/memberRequest.dto.js";
 
 export const getMemberByUsername = async (username: string) => {
@@ -8,23 +8,23 @@ export const getMemberByUsername = async (username: string) => {
     `
     select * 
       from member
-     where username = $1,
+     where username = $1
      `,
     [username],
   );
-  return jsConvert.camelKeys(rows[0]) as Users;
+  return jsConvert.camelKeys(rows[0]) as MemberResponse;
 };
 
-export const getMemberById = async (userId: number) => {
+export const getMemberById = async (memberId: number) => {
   const { rows } = await pool.query(
     `
     select *
       from member
-     where member = $1
+     where member_id = $1
     `,
-    [userId],
+    [memberId],
   );
-  return jsConvert.camelKeys(rows[0]) as Users;
+  return jsConvert.camelKeys(rows[0]) as MemberResponse;
 };
 
 export const insertMember = async ({
@@ -50,4 +50,27 @@ export const existMemberByUsername = async (username: string) => {
     [username],
   );
   return rows.length > 0;
+};
+
+export const confirmMemberAsMemberWithId = async (memberId: number) => {
+  await pool.query(
+    `
+    update member
+       set is_admin = false
+     where member_id = $1
+    `,
+    [memberId],
+  );
+};
+
+export const confirmMemberAsAdminWithId = async (memberId: number) => {
+  await pool.query(
+    `
+    update member
+       set is_admin = true
+         , status = true
+     where member_id = $1
+    `,
+    [memberId],
+  );
 };
