@@ -12,8 +12,8 @@
       <p>작성자: <%= message.username %></p>
       <% } %>
       <% if (locals.isAdmin) { %>
-      <form action="message/delete/:<%= message.messageId %>" method="post">
-        <button type="submit">메세지 삭제</button>
+      <form action="message/delete/<%= message.messageId %>" method="post">
+        <button type="submit" onclick="return confirm('정말 삭제할까요?')">메세지 삭제</button>
       </form>
       <% } %>
     </li>

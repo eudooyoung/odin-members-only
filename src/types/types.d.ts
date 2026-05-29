@@ -7,6 +7,7 @@ declare global {
       SESSION_SECRET: string;
       MEMBER_CODE: string;
       ADMIN_CODE: string;
+      ADMIN_PW: string;
 
       DB_ENV: "development" | "production";
       DB_USER: string;

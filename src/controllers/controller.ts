@@ -7,6 +7,7 @@ import type {
 } from "../models/message.dto.js";
 import { validateNewMessage } from "../middlewares/validates/validateMessage.js";
 import {
+  deleteMessageById,
   getAllMessagesAuth,
   getAllMessagesPublic,
   insertMessageWithMemberId,
@@ -15,14 +16,14 @@ import {
 export const homeGet: RequestHandler = (req, res) => {
   void (async () => {
     let messages: MessageResponseAuth[] | MessageResponsePublic[];
-    if (!req.isAuthenticated()) {
+    if (!req.isAuthenticated() || !req.user.status) {
       messages = await getAllMessagesPublic();
     } else {
       messages = await getAllMessagesAuth();
     }
     res.render("index", {
       messages: messages,
-      isAdmin: req.user!.isAdmin
+      isAdmin: req.user?.isAdmin,
     });
   })();
 };
@@ -53,3 +54,11 @@ const messagePostHandler: RequestHandler = (req, res) => {
 };
 
 export const messagePost = [...validateNewMessage, messagePostHandler];
+
+export const deleteMessagePost: RequestHandler = (req, res) => {
+  void (async () => {
+    const { messageId } = req.params;
+    await deleteMessageById(Number(messageId));
+    res.redirect("/");
+  })();
+};

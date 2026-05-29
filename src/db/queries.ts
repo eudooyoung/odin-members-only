@@ -28,7 +28,7 @@ export const getMemberById = async (memberId: number) => {
     `,
     [memberId],
   );
-    return queryResultCaseConverter<MemberResponse>(rows)[0];
+  return queryResultCaseConverter<MemberResponse>(rows)[0];
 };
 
 export const insertMember = async ({
@@ -115,4 +115,14 @@ export const getAllMessagesAuth = async () => {
     `,
   );
   return queryResultCaseConverter<MessageResponseAuth>(rows);
+};
+
+export const deleteMessageById = async (messageId: number) => {
+  await pool.query(
+    `
+    delete from message
+     where message_id = $1
+    `,
+    [messageId],
+  );
 };

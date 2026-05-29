@@ -9,7 +9,7 @@ const guestLink = [
 
 const memberLink = [
   { href: "/dashboard", text: "Dashboard" },
-  { href: "/logout", text: "Logout" },
+  { href: "/auth/logout", text: "Logout" },
 ];
 
 const linkProvider: RequestHandler = (req, res, next) => {
