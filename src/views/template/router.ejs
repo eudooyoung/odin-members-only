@@ -1,7 +1,16 @@
-<% if (page === "home") { %>
+<% if (locals.page === "home") { %>
 <%- include("../pages/home") %>
 <% } %>
+<% if (locals.page === "dashboard") { %>
+<%- include("../pages/dashboard") %>
+<% } %>
 
-<% if (page === "auth") { %>
-<%- include("../pages/auth") %>
+<% if (locals.page === "signup") { %>
+<%- include("../pages/signup") %>
+<% } %>
+<% if (locals.page === "login") { %>
+<%- include("../pages/login") %>
+<% } %>
+<% if (locals.page === "confirm") { %>
+<%- include("../pages/confirm") %>
 <% } %>

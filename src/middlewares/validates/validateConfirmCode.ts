@@ -1,6 +1,6 @@
 import { body } from "express-validator";
-import { invalidCodeErr } from "./errors.js";
-import config from "../config.js";
+import { invalidCodeErr } from "./errorMessages.js";
+import config from "../../config.js";
 
 export const validateConfirmCode = [
   body("confirmCode")
