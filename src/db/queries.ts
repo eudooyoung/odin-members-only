@@ -1,10 +1,14 @@
-import jsConvert from "js-convert-case";
 import pool from "./pool.js";
 import type { MemberRequest, MemberResponse } from "../models/member.dto.js";
-import type { MessageRequest } from "../models/message.dto.js";
+import type {
+  MessageRequest,
+  MessageResponseAuth,
+  MessageResponsePublic,
+} from "../models/message.dto.js";
+import queryResultCaseConverter from "../middlewares/utils/queryResultCaseConverter.js";
 
 export const getMemberByUsername = async (username: string) => {
-  const { rows } = await pool.query(
+  const { rows } = await pool.query<MemberResponse>(
     `
     select * 
       from member
@@ -12,11 +16,11 @@ export const getMemberByUsername = async (username: string) => {
      `,
     [username],
   );
-  return jsConvert.camelKeys(rows[0]) as MemberResponse;
+  return queryResultCaseConverter<MemberResponse>(rows)[0];
 };
 
 export const getMemberById = async (memberId: number) => {
-  const { rows } = await pool.query(
+  const { rows } = await pool.query<MemberResponse>(
     `
     select *
       from member
@@ -24,7 +28,7 @@ export const getMemberById = async (memberId: number) => {
     `,
     [memberId],
   );
-  return jsConvert.camelKeys(rows[0]) as MemberResponse;
+    return queryResultCaseConverter<MemberResponse>(rows)[0];
 };
 
 export const insertMember = async ({
@@ -86,4 +90,29 @@ export const insertMessageWithMemberId = async (
     `,
     [title, content, memberId],
   );
+};
+
+export const getAllMessagesPublic = async () => {
+  const { rows } = await pool.query<MessageResponsePublic>(
+    `
+    select message_id
+         , title
+         , content
+         , created_at
+      from message;
+    `,
+  );
+  return queryResultCaseConverter<MessageResponsePublic>(rows);
+};
+
+export const getAllMessagesAuth = async () => {
+  const { rows } = await pool.query<MessageResponseAuth>(
+    `
+    select m.*, u.username
+      from message m
+      join member u
+        on m.member_id = u.member_id
+    `,
+  );
+  return queryResultCaseConverter<MessageResponseAuth>(rows);
 };

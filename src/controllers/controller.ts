@@ -1,11 +1,30 @@
 import type { RequestHandler } from "express";
 import { matchedData, validationResult } from "express-validator";
-import type { MessageRequest } from "../models/message.dto.js";
+import type {
+  MessageRequest,
+  MessageResponseAuth,
+  MessageResponsePublic,
+} from "../models/message.dto.js";
 import { validateNewMessage } from "../middlewares/validates/validateMessage.js";
-import { insertMessageWithMemberId } from "../db/queries.js";
+import {
+  getAllMessagesAuth,
+  getAllMessagesPublic,
+  insertMessageWithMemberId,
+} from "../db/queries.js";
 
 export const homeGet: RequestHandler = (req, res) => {
-  res.render("index");
+  void (async () => {
+    let messages: MessageResponseAuth[] | MessageResponsePublic[];
+    if (!req.isAuthenticated()) {
+      messages = await getAllMessagesPublic();
+    } else {
+      messages = await getAllMessagesAuth();
+    }
+    res.render("index", {
+      messages: messages,
+      isAdmin: req.user!.isAdmin
+    });
+  })();
 };
 
 export const dashboardGet: RequestHandler = (req, res) => {
