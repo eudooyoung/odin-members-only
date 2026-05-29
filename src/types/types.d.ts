@@ -1,4 +1,4 @@
-import type MemberResponse from "../models/member.dto.js";
+import type { MemberResponse } from "../models/member.dto.js";
 
 declare global {
   namespace NodeJS {

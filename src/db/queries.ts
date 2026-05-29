@@ -1,7 +1,7 @@
 import jsConvert from "js-convert-case";
 import pool from "./pool.js";
-import type { MemberRequest } from "../models/member.dto.js";
-import type MemberResponse from "../models/member.dto.js";
+import type { MemberRequest, MemberResponse } from "../models/member.dto.js";
+import type { MessageRequest } from "../models/message.dto.js";
 
 export const getMemberByUsername = async (username: string) => {
   const { rows } = await pool.query(
@@ -72,5 +72,18 @@ export const confirmMemberAsAdminWithId = async (memberId: number) => {
      where member_id = $1
     `,
     [memberId],
+  );
+};
+
+export const insertMessageWithMemberId = async (
+  { title, content }: MessageRequest,
+  memberId: number,
+) => {
+  await pool.query(
+    `
+    insert into message(title, content, member_id)
+    values ($1, $2, $3)
+    `,
+    [title, content, memberId],
   );
 };

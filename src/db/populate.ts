@@ -24,7 +24,7 @@ create table if not exists member (
 create table if not exists message (
     message_id int primary key generated always as identity,
     member_id int not null,
-    title varchar (100) not null,
+    title varchar (50) not null,
     content text not null,
     created_at timestamptz default now(),
     constraint fk_member
