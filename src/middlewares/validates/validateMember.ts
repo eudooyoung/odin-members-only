@@ -14,7 +14,7 @@ import {
   passwordUppercaseErr,
   usernameMaxLengthErr,
   usernameMinLengthErr,
-} from "./errors.js";
+} from "./errorMessages.js";
 import { existMemberByUsername } from "../../db/queries.js";
 import type { MemberRequest } from "../../models/member.dto.js";
 

@@ -9,6 +9,7 @@ import {
   signUpPost,
 } from "../controllers/authController.js";
 import passport from "../auth/passport.js";
+import blockNonAuthRequest from "../middlewares/utils/blockNonAuthRequest.js";
 
 const authRouter = Router();
 
@@ -23,8 +24,18 @@ authRouter.post(
     failureFlash: true,
   }) as RequestHandler,
 );
-authRouter.get("/confirm", pageProvider("confirm"), confirmGet);
-authRouter.post("/confirm", pageProvider("confirm"), confirmPost);
-authRouter.get("/logout", logoutGet);
+authRouter.get(
+  "/confirm",
+  blockNonAuthRequest,
+  pageProvider("confirm"),
+  confirmGet,
+);
+authRouter.post(
+  "/confirm",
+  blockNonAuthRequest,
+  pageProvider("confirm"),
+  confirmPost,
+);
+authRouter.get("/logout", blockNonAuthRequest, logoutGet);
 
 export default authRouter;
