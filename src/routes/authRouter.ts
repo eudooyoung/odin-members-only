@@ -10,14 +10,21 @@ import {
 } from "../controllers/authController.js";
 import passport from "../auth/passport.js";
 import blockNonAuthRequest from "../middlewares/utils/blockNonAuthRequest.js";
+import blockAuthRequest from "../middlewares/utils/blockAuthRequest.js";
 
 const authRouter = Router();
 
-authRouter.get("/signup", pageProvider("signup"), signUpGet);
-authRouter.post("/signup", pageProvider("signup"), signUpPost);
-authRouter.get("/login", pageProvider("login"), loginGet);
+authRouter.get("/signup", blockAuthRequest, pageProvider("signup"), signUpGet);
+authRouter.post(
+  "/signup",
+  blockAuthRequest,
+  pageProvider("signup"),
+  signUpPost,
+);
+authRouter.get("/login", blockAuthRequest, pageProvider("login"), loginGet);
 authRouter.post(
   "/login",
+  blockAuthRequest,
   passport.authenticate("local", {
     successRedirect: "/dashboard",
     failureRedirect: "/login",
