@@ -1,3 +1,23 @@
 <main>
-  웰컴!
+  <h2>다시마 클럽에 오신 걸 환영합니다!</h2>
+  <h3>멤버 메세지 목록</h3>
+  <% if (locals.messages) { %>
+  <ul>
+    <% messages.forEach(message => { %>
+    <li>
+      <p>제목: <%= message.title %></p>
+      <p>내용: <%= message.content %></p>
+      <p>게시일: <%= message.createdAt %></p>
+      <% if (message.username) { %>
+      <p>작성자: <%= message.username %></p>
+      <% } %>
+      <% if (locals.isAdmin) { %>
+      <form action="message/delete/<%= message.messageId %>" method="post">
+        <button type="submit" onclick="return confirm('정말 삭제할까요?')">메세지 삭제</button>
+      </form>
+      <% } %>
+    </li>
+    <% }) %>
+  </ul>
+  <% } %>
 </main>

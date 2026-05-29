@@ -8,6 +8,7 @@ import {
 import type { MemberRequest } from "../models/member.dto.js";
 import { validateNewMember } from "../middlewares/validates/validateMember.js";
 import { validateConfirmCode } from "../middlewares/validates/validateConfirmCode.js";
+import config from "../config.js";
 
 export const signUpGet: RequestHandler = (req, res) => {
   res.render("index");
@@ -48,7 +49,7 @@ const confirmPostMiddleWare: RequestHandler = (req, res) => {
       });
     }
     const { confirmCode } = matchedData(req);
-    if (confirmCode === "MEMBER") {
+    if (confirmCode === config.memberCode) {
       await confirmMemberAsMemberWithId(req.user!.memberId);
     } else {
       await confirmMemberAsAdminWithId(req.user!.memberId);

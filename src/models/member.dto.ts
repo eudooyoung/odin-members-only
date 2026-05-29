@@ -5,7 +5,7 @@ export interface MemberRequest {
   lastName: string;
 }
 
-export default interface MemberResponse {
+export interface MemberResponse {
   memberId: number;
   firstName: string;
   lastName: string;
