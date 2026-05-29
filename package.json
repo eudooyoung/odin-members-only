@@ -34,7 +34,7 @@
     "typescript-eslint": "^8.59.4"
   },
   "scripts": {
-    "build": "rm -rf dist/ && npm install && tsc && cp -r src/views dist/ && cp -r src/public dist/",
+    "build": "rm -rf dist/ && npm install && tsc && cp -r src/views dist/",
     "start": "node dist/app.js",
     "populate:dev": "dotenv -e .env -e .env.dev tsx src/db/populate.ts",
     "populate:prod": "dotenv -e .env -e .env.prod tsx src/db/populate.ts",
